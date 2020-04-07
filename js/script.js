@@ -2,11 +2,9 @@
 
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
+const RECT = 32;
 const food = new Image();
 food.src = 'img/food.png';
-
-const RECT = 32;
-const TO_RADIANS = Math.PI/180; 
 
 let backgroundColor = ['rgba(42, 119, 34, 1)', '#3AA02E'];
 let direction = 'left';
@@ -109,13 +107,12 @@ const gameLogic = () => {
   eatSelf(newHead, snake);
 
   if (isEnd === true) {
-    record = score;
+    if (score > record) record = score;
+    localStorage.setItem('record', record)
   }
 
   let recordMsg = `Record - ${record}`;
   setMessage(recordMsg, 16); //Record out
-
-  localStorage.setItem('record', record);
 
   snake.unshift(newHead);
 };
